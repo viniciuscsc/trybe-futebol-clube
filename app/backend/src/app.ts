@@ -1,3 +1,4 @@
+// iniciando o projeto
 import * as express from 'express';
 
 class App {
