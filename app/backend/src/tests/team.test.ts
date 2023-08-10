@@ -41,7 +41,7 @@ describe('Teams tests', function () {
   // });
   afterEach(sinon.restore);
 
-  it('Retorna todos os times', async function () {
+  it('01 - Retorna todos os times', async function () {
     sinon.stub(SequelizeTeam, 'findAll').resolves(teams as any);
     const { status, body } = await chai.request(app).get('/teams');
     expect(status).to.be.eq(200);
