@@ -11,4 +11,10 @@ export default class TeamService {
     const teams = await this.teamModel.findAll();
     return { statusCode: 200, data: teams };
   }
+
+  async getTeamById(id: number): Promise<ServiceResponse<ITeam>> {
+    const team = await this.teamModel.findById(id);
+    if (!team) return { statusCode: 404, data: { message: 'Team not found' } };
+    return { statusCode: 200, data: team };
+  }
 }
