@@ -4,15 +4,16 @@ import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 
 import { app } from '../app';
-import Example from '../database/models/ExampleModel';
+import SequelizeTeam from '../database/models/SequelizeTeam';
+import { team, teams } from './mocks/team.mocks';
 
-import { Response } from 'superagent';
+// import { Response } from 'superagent';
 
 chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('Seu teste', () => {
+describe('Teams tests', function () {
   /**
    * Exemplo do uso de stubs com tipos
    */
@@ -38,8 +39,12 @@ describe('Seu teste', () => {
 
   //   expect(...)
   // });
+  afterEach(sinon.restore);
 
-  it('Seu sub-teste', () => {
-    expect(false).to.be.eq(true);
+  it('Retorna todos os times', async function () {
+    sinon.stub(SequelizeTeam, 'findAll').resolves(teams as any);
+    const { status, body } = await chai.request(app).get('/teams');
+    expect(status).to.be.eq(200);
+    expect(body).to.deep.eq(teams);
   });
 });
