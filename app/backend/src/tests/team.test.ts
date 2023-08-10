@@ -5,7 +5,7 @@ import chaiHttp = require('chai-http');
 
 import { app } from '../app';
 import SequelizeTeam from '../database/models/SequelizeTeam';
-import { team, teams } from './mocks/team.mocks';
+import { team, teams, TEAM_NOT_FOUND } from './mocks/team.mocks';
 
 // import { Response } from 'superagent';
 
@@ -46,5 +46,12 @@ describe('Teams tests', function () {
     const { status, body } = await chai.request(app).get('/teams');
     expect(status).to.be.eq(200);
     expect(body).to.deep.eq(teams);
+  });
+
+  it('02 - Retorna o time correspondente ao id informado', async function () {
+    sinon.stub(SequelizeTeam, 'findByPk').resolves(team as any);
+    const { status, body } = await chai.request(app).get('/teams/1');
+    expect(status).to.be.eq(200);
+    expect(body).to.deep.eq(team);
   });
 });
