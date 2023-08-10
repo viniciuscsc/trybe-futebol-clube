@@ -54,4 +54,11 @@ describe('Teams tests', function () {
     expect(status).to.be.eq(200);
     expect(body).to.deep.eq(team);
   });
+
+  it('03 - Retorna "Team not found" quando o id informado não existe', async function () {
+    sinon.stub(SequelizeTeam, 'findByPk').resolves(null);
+    const { status, body } = await chai.request(app).get('/teams/999');
+    expect(status).to.be.eq(404);
+    expect(body).to.deep.eq(TEAM_NOT_FOUND);
+  });
 });
