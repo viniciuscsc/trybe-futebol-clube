@@ -1,3 +1,4 @@
+import { IToken } from '../IToken';
 import { ILogin } from './ILogin';
 import { IUser } from './IUser';
 
@@ -8,5 +9,5 @@ export interface IUserModel {
 
   findByEmail(email: IUser['email']): Promise<IUser | null>;
 
-  login(loginData: ILogin)
+  login(loginData: ILogin): Promise<IToken>;
 }
