@@ -3,14 +3,10 @@ import UserModel from '../models/UserModel';
 import { IUser } from '../Interfaces/users/IUser';
 import { ServiceResponse } from '../Interfaces/ServiceResponse';
 import { IPayload } from '../Interfaces/users/IPayload';
+import { IUserLogin } from '../Interfaces/users/IUserLogin';
 import { signToken } from '../utils/jwt.util';
 
 const INVALID_LOGIN = 'Invalid email or password';
-
-type Login = {
-  email: string,
-  password: string,
-};
 
 export default class UserService {
   constructor(
@@ -34,7 +30,7 @@ export default class UserService {
     return { statusCode: 200, data: user };
   }
 
-  async login(loginData: Login): Promise<ServiceResponse<IUser | string>> {
+  async login(loginData: IUserLogin): Promise<ServiceResponse<IUser | string>> {
     const { email, password } = loginData;
     const user = await this.userModel.findByEmail(email);
     if (!user) return { statusCode: 401, data: { message: INVALID_LOGIN } };
