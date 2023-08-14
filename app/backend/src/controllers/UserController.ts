@@ -1,26 +1,9 @@
 import * as bcrypt from 'bcryptjs';
-import * as jwt from 'jsonwebtoken';
 import { Request, Response } from 'express';
 import UserService from '../services/UserService';
 import UserModel from '../models/UserModel';
 import { IPayload } from '../Interfaces/users/IPayload';
-
-const JWT_SECRET = process.env.JWT_SECRET || 'jwt_secret';
-
-function signToken(payload: IPayload): string {
-  const token = jwt.sign(payload, JWT_SECRET);
-  return token;
-}
-
-// function verifyToken(token: string): IPayload | string {
-//   try {
-//     const payload = jwt.verify(token, JWT_SECRET) as IPayload;
-//     return payload;
-//   } catch (error) {
-//     const invalidToken = 'Token must be a valid token';
-//     return invalidToken;
-//   }
-// }
+import { signToken } from '../utils/jwt.util';
 
 export default class UserController {
   constructor(
