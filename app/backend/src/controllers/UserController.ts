@@ -27,11 +27,11 @@ export default class UserController {
     const { statusCode, data } = await this.userService.login(req.body);
 
     if (statusCode === 401) return res.status(statusCode).json(data);
-    return res.status(statusCode).json({ data });
+    return res.status(statusCode).json({ token: data });
   }
 
-  static getUserRole(_req: Request, res: Response): Response {
-    const { user } = res.locals;
-    return res.status(200).json({ role: user.role });
+  static async getUserRole(_req: Request, res: Response): Promise<Response> {
+    const { role } = res.locals.user;
+    return res.status(200).json({ role });
   }
 }

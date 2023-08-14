@@ -20,13 +20,14 @@ export default class Validations {
     next();
   }
 
-  static validateToken(req: Request, res: Response, next: NextFunction)
-    : Response | void {
-    const { authorization } = req.headers;
+  static async validateToken(req: Request, res: Response, next: NextFunction)
+    : Promise<Response | void> {
+    const auth = req.headers.authorization;
 
-    if (!authorization) return res.status(401).json({ message: 'Token not found' });
+    if (!auth) return res.status(401).json({ message: 'Token not found' });
 
-    const token = authorization.split(' ')[1];
+    const data = auth.split(' ');
+    const token = data[data.length - 1];
 
     const validToken = verifyToken(token);
 
