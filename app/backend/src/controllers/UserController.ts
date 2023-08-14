@@ -29,4 +29,9 @@ export default class UserController {
     if (statusCode === 401) return res.status(statusCode).json(data);
     return res.status(statusCode).json({ data });
   }
+
+  static getUserRole(_req: Request, res: Response): Response {
+    const { user } = res.locals;
+    return res.status(200).json({ role: user.role });
+  }
 }
