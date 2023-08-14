@@ -26,7 +26,12 @@ export default class UserController {
   }
 
   async login(req: Request, res: Response): Promise<Response> {
+    const { email, password } = req.body;
+
+    if (!email || !password) return res.status(400).json({ message: 'All fields must be filled' });
+
     const { statusCode, data } = await this.userService.login(req.body);
+
     if (statusCode === 401) return res.status(statusCode).json(data);
     return res.status(statusCode).json({ data });
   }
