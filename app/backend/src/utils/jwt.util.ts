@@ -13,7 +13,7 @@ export function verifyToken(token: string): IUserPayload | string {
     const payload = jwt.verify(token, JWT_SECRET) as IUserPayload;
     return payload;
   } catch (error) {
-    const invalidToken = 'Token must be a valid token';
+    const invalidToken = 'invalidToken';
     return invalidToken;
   }
 }
