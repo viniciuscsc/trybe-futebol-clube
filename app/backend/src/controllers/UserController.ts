@@ -28,6 +28,7 @@ export default class UserController {
   async login(req: Request, res: Response): Promise<Response> {
     // const { email, password } = req.body;
     const { statusCode, data } = await this.userService.login(req.body);
+    if (statusCode === 401) return res.status(statusCode).json(data);
     return res.status(statusCode).json({ data });
   }
 }
