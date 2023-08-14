@@ -1,11 +1,9 @@
 import { Request, Response } from 'express';
 import UserService from '../services/UserService';
-import UserModel from '../models/UserModel';
 
 export default class UserController {
   constructor(
     private userService = new UserService(),
-    private userModel = new UserModel(),
   ) {}
 
   async getUsers(_req: Request, res: Response): Promise<Response> {
