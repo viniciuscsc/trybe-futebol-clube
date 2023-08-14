@@ -20,7 +20,7 @@ export default class UserService {
 
   async getUserByEmail(email: string): Promise<ServiceResponse<IUser>> {
     const user = await this.userModel.findByEmail(email);
-    if (!user) return { statusCode: 404, data: { message: 'User not found' } };
+    if (!user) return { statusCode: 401, data: { message: 'Invalid email or password' } };
     return { statusCode: 200, data: user };
   }
 }
