@@ -3,22 +3,18 @@ import * as jwt from 'jsonwebtoken';
 import { Request, Response } from 'express';
 import UserService from '../services/UserService';
 import UserModel from '../models/UserModel';
+import { IPayload } from '../Interfaces/users/IPayload';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'jwt_secret';
 
-type Payload = {
-  email: string,
-  role: string,
-};
-
-function signToken(payload: Payload): string {
+function signToken(payload: IPayload): string {
   const token = jwt.sign(payload, JWT_SECRET);
   return token;
 }
 
-// function verifyToken(token: string): Payload | string {
+// function verifyToken(token: string): IPayload | string {
 //   try {
-//     const payload = jwt.verify(token, JWT_SECRET) as Payload;
+//     const payload = jwt.verify(token, JWT_SECRET) as IPayload;
 //     return payload;
 //   } catch (error) {
 //     const invalidToken = 'Token must be a valid token';
@@ -56,7 +52,7 @@ export default class UserController {
     if (!bcrypt.compareSync(password, user.password)) {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
-    const tokenPayload: Payload = { email: user.email, role: user.role };
+    const tokenPayload: IPayload = { email: user.email, role: user.role };
     const token = signToken(tokenPayload);
     return res.status(200).json({ token });
   }
