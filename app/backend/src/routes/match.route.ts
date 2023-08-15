@@ -7,7 +7,7 @@ const matchController = new MatchController();
 const router = Router();
 
 router.get('/', (req: Request, res: Response) => matchController.getMatches(req, res));
-router.put(
+router.patch(
   '/:id/finish',
   Validations.validateToken,
   (req: Request, res: Response) => matchController.endGame(req, res),
