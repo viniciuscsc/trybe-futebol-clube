@@ -6,8 +6,12 @@ export default class MatchController {
     private matchService = new MatchService(),
   ) {}
 
-  async getMatches(_req: Request, res: Response): Promise<Response> {
-    const { statusCode, data } = await this.matchService.getMatches();
-    return res.status(statusCode).json(data);
+  async getMatches(req: Request, res: Response): Promise<Response> {
+    const { inProgress } = req.query;
+    // inProgress é a variável que receberá "true" ou "false"
+    // o tipo recebido é uma string, não boolean
+
+    const { statusCode } = await this.matchService.getMatches();
+    return res.status(statusCode).json(typeof inProgress);
   }
 }
