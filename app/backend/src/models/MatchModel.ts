@@ -8,8 +8,10 @@ export default class MatchModel implements IMatchModel {
   private model = SequelizeMatch;
 
   async findAll(inProgress?: boolean): Promise<IMatch[]> {
+    const whereInProgress = inProgress === undefined ? {} : { inProgress };
+
     const matches = await this.model.findAll({
-      where: { inProgress },
+      where: whereInProgress,
       include: [
         {
           model: SequelizeTeam,
