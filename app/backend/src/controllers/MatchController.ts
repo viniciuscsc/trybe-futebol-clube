@@ -7,11 +7,13 @@ export default class MatchController {
   ) {}
 
   async getMatches(req: Request, res: Response): Promise<Response> {
-    const { inProgress } = req.query;
     // inProgress é a variável que receberá "true" ou "false"
     // o tipo recebido é uma string, não boolean
 
-    const { statusCode } = await this.matchService.getMatches();
-    return res.status(statusCode).json(typeof inProgress);
+    const inProgressString = req.query.inProgress;
+    const inProgress = inProgressString === 'true';
+
+    const { statusCode, data } = await this.matchService.getMatches(inProgress);
+    return res.status(statusCode).json(data);
   }
 }
