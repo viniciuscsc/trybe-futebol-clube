@@ -4,6 +4,7 @@ import SequelizeMatch from '../database/models/SequelizeMatch';
 import { IMatch } from '../Interfaces/matches/IMatch';
 import { IMatchModel } from '../Interfaces/matches/IMatchModel';
 import { IUpdatedMatch } from '../Interfaces/matches/IUpdatedMatch';
+import { NewEntity } from '../Interfaces';
 
 export default class MatchModel implements IMatchModel {
   private model = SequelizeMatch;
@@ -44,5 +45,23 @@ export default class MatchModel implements IMatchModel {
     const updatedMatch = { ...match, homeTeamGoals, awayTeamGoals };
 
     await this.model.update(updatedMatch, { where: { id } });
+  }
+
+  async createMatch(matchData: NewEntity<IMatch>): Promise<IMatch> {
+    const newMatch = await this.model.create(matchData);
+
+    const { id,
+      homeTeamId,
+      homeTeamGoals,
+      awayTeamId,
+      awayTeamGoals,
+      inProgress }: IMatch = newMatch;
+
+    return { id,
+      homeTeamId,
+      homeTeamGoals,
+      awayTeamId,
+      awayTeamGoals,
+      inProgress };
   }
 }
