@@ -1,7 +1,14 @@
 import { NextFunction, Request, Response } from 'express';
+
+import MatchModel from '../models/MatchModel';
+
 import { verifyToken } from '../utils/jwt.util';
 
 export default class Validations {
+  constructor(
+    private matchModel = new MatchModel(),
+  ) {}
+
   static validateRequiredLoginFiels(req: Request, res: Response, next: NextFunction)
     : Response | void {
     const { email, password } = req.body;
@@ -36,6 +43,26 @@ export default class Validations {
     }
 
     res.locals.user = validToken;
+
+    next();
+  }
+
+  async validateIds(req: Request, res: Response, next: NextFunction)
+    : Promise<Response | void> {
+    const { homeTeamId, awayTeamId } = req.body;
+
+    const homeTeam = this.matchModel.findById(homeTeamId);
+    const awayTeam = this.matchModel.findById(awayTeamId);
+
+    if (!homeTeam || !awayTeam) {
+      return res.status(404).json({ message: 'There is no team with such id!' });
+    }
+
+    if (homeTeamId === awayTeamId) {
+      return res.status(422).json({
+        message: 'It is not possible to create a match with two equal teams',
+      });
+    }
 
     next();
   }
