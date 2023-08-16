@@ -28,7 +28,7 @@ export default class MatchModel implements IMatchModel {
     return matches;
   }
 
-  async update(id: number): Promise<void> {
+  async endGame(id: number): Promise<void> {
     const match = await this.model.findOne({ where: { id } });
 
     const updatedMatch = { ...match, inProgress: false };
