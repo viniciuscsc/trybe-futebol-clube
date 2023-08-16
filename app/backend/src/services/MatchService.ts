@@ -3,6 +3,7 @@ import MatchModel from '../models/MatchModel';
 import { ServiceMessage, ServiceResponse } from '../Interfaces/ServiceResponse';
 import { IMatch } from '../Interfaces/matches/IMatch';
 import { IUpdatedMatch } from '../Interfaces/matches/IUpdatedMatch';
+import { NewEntity } from '../Interfaces';
 
 export default class MatchService {
   constructor(
@@ -22,5 +23,10 @@ export default class MatchService {
   async updateMatch(updatedMatchData: IUpdatedMatch): Promise<ServiceResponse<ServiceMessage>> {
     await this.matchModel.updateMatch(updatedMatchData);
     return { statusCode: 200, data: { message: 'Updated' } };
+  }
+
+  async createMatch(matchData: NewEntity<IMatch>): Promise<ServiceResponse<IMatch>> {
+    const newMatch = await this.matchModel.createMatch(matchData);
+    return { statusCode: 200, data: newMatch };
   }
 }
