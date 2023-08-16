@@ -20,4 +20,9 @@ router.patch(
   (req: Request, res: Response) => matchController.updateMatch(req, res),
 );
 
+router.post(
+  '/',
+  (req: Request, res: Response) => matchController.createMatch(req, res),
+);
+
 export default router;
