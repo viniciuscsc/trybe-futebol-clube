@@ -14,7 +14,7 @@ export default class MatchService {
   }
 
   async endGame(id: number): Promise<ServiceResponse<ServiceMessage>> {
-    await this.matchModel.endGame(id);
+    await this.matchModel.endMatch(id);
     return { statusCode: 200, data: { message: 'Finished' } };
   }
 }
