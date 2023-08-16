@@ -7,4 +7,6 @@ export interface IMatchModel {
   endMatch(id: IMatch['id']): Promise<void>;
 
   updateMatch(updatedMatchData: IUpdatedMatch): Promise<void>;
+
+  createMatch(matchData: Partial<IMatch>): Promise<IMatch>;
 }
