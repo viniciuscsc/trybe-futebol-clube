@@ -5,4 +5,5 @@ export interface IMatchModel {
 
   endMatch(id: IMatch['id']): Promise<void>;
 
+  updateMatch(id: IMatch['id']): Promise<void>;
 }
