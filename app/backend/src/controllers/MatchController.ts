@@ -22,9 +22,9 @@ export default class MatchController {
     return res.status(statusCode).json(data);
   }
 
-  async endGame(req: Request, res: Response): Promise<Response> {
+  async endMatch(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
-    const { statusCode, data } = await this.matchService.endGame(Number(id));
+    const { statusCode, data } = await this.matchService.endMatch(Number(id));
     return res.status(statusCode).json(data);
   }
 }

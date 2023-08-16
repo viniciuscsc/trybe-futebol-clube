@@ -2,6 +2,7 @@ import MatchModel from '../models/MatchModel';
 
 import { ServiceMessage, ServiceResponse } from '../Interfaces/ServiceResponse';
 import { IMatch } from '../Interfaces/matches/IMatch';
+import { IUpdatedMatch } from '../Interfaces/matches/IUpdatedMatch';
 
 export default class MatchService {
   constructor(
@@ -13,8 +14,13 @@ export default class MatchService {
     return { statusCode: 200, data: matches };
   }
 
-  async endGame(id: number): Promise<ServiceResponse<ServiceMessage>> {
+  async endMatch(id: number): Promise<ServiceResponse<ServiceMessage>> {
     await this.matchModel.endMatch(id);
     return { statusCode: 200, data: { message: 'Finished' } };
+  }
+
+  async updateMatch(updatedMatchData: IUpdatedMatch): Promise<ServiceResponse<ServiceMessage>> {
+    await this.matchModel.updateMatch(updatedMatchData);
+    return { statusCode: 200, data: { message: 'Updated' } };
   }
 }

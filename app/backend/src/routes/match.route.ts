@@ -10,7 +10,7 @@ router.get('/', (req: Request, res: Response) => matchController.getMatches(req,
 router.patch(
   '/:id/finish',
   Validations.validateToken,
-  (req: Request, res: Response) => matchController.endGame(req, res),
+  (req: Request, res: Response) => matchController.endMatch(req, res),
 );
 
 export default router;
