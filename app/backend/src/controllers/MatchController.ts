@@ -1,5 +1,8 @@
 import { Request, Response } from 'express';
+
 import MatchService from '../services/MatchService';
+
+import { IUpdatedMatch } from '../Interfaces/matches/IUpdatedMatch';
 
 export default class MatchController {
   constructor(
@@ -7,8 +10,6 @@ export default class MatchController {
   ) {}
 
   async getMatches(req: Request, res: Response): Promise<Response> {
-    // inProgress é a variável que receberá "true" ou "false"
-    // o tipo recebido é uma string, não boolean
     const inProgressString = req.query.inProgress;
 
     if (!inProgressString) {
@@ -25,6 +26,16 @@ export default class MatchController {
   async endMatch(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
     const { statusCode, data } = await this.matchService.endMatch(Number(id));
+    return res.status(statusCode).json(data);
+  }
+
+  async updateMatch(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
+    const { homeTeamGoals, awayTeamGoals } = req.body;
+    const updatedMatchData: IUpdatedMatch = { id: Number(id), homeTeamGoals, awayTeamGoals };
+
+    const { statusCode, data } = await this.matchService.updateMatch(updatedMatchData);
+
     return res.status(statusCode).json(data);
   }
 }
