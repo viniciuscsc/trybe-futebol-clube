@@ -26,7 +26,8 @@ export default class MatchService {
   }
 
   async createMatch(matchData: NewEntity<IMatch>): Promise<ServiceResponse<IMatch>> {
-    const newMatch = await this.matchModel.createMatch(matchData);
-    return { statusCode: 200, data: newMatch };
+    const newMatchInProgress = { ...matchData, inProgress: true };
+    const newMatch = await this.matchModel.createMatch(newMatchInProgress);
+    return { statusCode: 201, data: newMatch };
   }
 }
