@@ -1,25 +1,39 @@
 import { IMatch } from '../Interfaces/matches/IMatch';
 
-export function getGoalsFavor(id: number, matches: IMatch[]) {
-  let goalsFavor = 0;
+// totalPoints: number,
+// totalGames: number,
+// totalVictories: number,
+// totalDraws: number,
+// totalLosses: number,
+
+export function getGames(id: number, matches: IMatch[]) {
+  let games = 0;
+  let victories = 0;
+  let draws = 0;
 
   matches.forEach((match) => {
     if (id === match.homeTeamId) {
-      goalsFavor += match.homeTeamGoals;
+      games += 1;
+      if (match.homeTeamGoals > match.awayTeamGoals) victories += 1;
+      if (match.homeTeamGoals === match.awayTeamGoals) draws += 1;
     }
   });
+  const losses = games - victories - draws;
+  const points = (victories * 3) + draws;
 
-  return goalsFavor;
+  return { points, games, victories, draws, losses };
 }
 
-export function getGoalsOwn(id: number, matches: IMatch[]) {
+export function getGoals(id: number, matches: IMatch[]) {
+  let goalsFavor = 0;
   let goalsOwn = 0;
 
   matches.forEach((match) => {
     if (id === match.homeTeamId) {
+      goalsFavor += match.homeTeamGoals;
       goalsOwn += match.awayTeamGoals;
     }
   });
 
-  return goalsOwn;
+  return { goalsFavor, goalsOwn };
 }

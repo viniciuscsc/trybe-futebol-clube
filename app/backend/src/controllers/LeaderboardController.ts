@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import TeamModel from '../models/TeamModel';
 import MatchModel from '../models/MatchModel';
-import { getGoalsFavor, getGoalsOwn } from '../utils/teamStatistics.util';
+import { getGames, getGoals } from '../utils/teamStatistics.util';
 import { IStatsTeam } from '../Interfaces/teams/IStatsTeam';
 
 export default class LeaderboardController {
@@ -14,13 +14,18 @@ export default class LeaderboardController {
     const teams = await this.teamModel.findAll();
     const matches = await this.matchModel.findAll();
 
-    const leaderboardHome: Array<IStatsTeam> = [];
+    const leaderboardHome: IStatsTeam[] = [];
 
     teams.forEach((team) => {
       const statsTeam = {
         name: team?.teamName,
-        goalsFavor: getGoalsFavor(team.id, matches),
-        goalsOwn: getGoalsOwn(team.id, matches),
+        totalPoints: getGames(team.id, matches).points,
+        totalGames: getGames(team.id, matches).games,
+        totalVictories: getGames(team.id, matches).victories,
+        totalDraws: getGames(team.id, matches).draws,
+        totalLosses: getGames(team.id, matches).losses,
+        goalsFavor: getGoals(team.id, matches).goalsFavor,
+        goalsOwn: getGoals(team.id, matches).goalsOwn,
       };
       leaderboardHome.push(statsTeam);
     });
