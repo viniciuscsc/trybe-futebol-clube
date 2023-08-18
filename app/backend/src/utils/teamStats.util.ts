@@ -14,8 +14,9 @@ export function getGames(teamId: number, matches: IMatch[]) {
   });
   const losses = games - victories - draws;
   const points = (victories * 3) + draws;
+  const efficiency = Number(((points / (games * 3)) * 100).toFixed(2));
 
-  return { points, games, victories, draws, losses };
+  return { points, games, victories, draws, losses, efficiency };
 }
 
 export function getGoals(teamId: number, matches: IMatch[]) {
