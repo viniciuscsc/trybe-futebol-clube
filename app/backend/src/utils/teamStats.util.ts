@@ -28,6 +28,4 @@ export function getGoals(teamId: number, matches: IMatch[]) {
       goalsOwn += awayTeamGoals;
     }
   });
-
-  return { goalsFavor, goalsOwn };
 }
