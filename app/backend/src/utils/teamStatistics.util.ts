@@ -1,11 +1,5 @@
 import { IMatch } from '../Interfaces/matches/IMatch';
 
-// totalPoints: number,
-// totalGames: number,
-// totalVictories: number,
-// totalDraws: number,
-// totalLosses: number,
-
 export function getGames(id: number, matches: IMatch[]) {
   let games = 0;
   let victories = 0;

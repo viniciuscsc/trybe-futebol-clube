@@ -1,4 +1,4 @@
-export type IStatsTeam = {
+export type ITeamStats = {
   name: string,
   totalPoints: number,
   totalGames: number,

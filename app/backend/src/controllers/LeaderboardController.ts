@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import TeamModel from '../models/TeamModel';
 import MatchModel from '../models/MatchModel';
 import { getGames, getGoals } from '../utils/teamStatistics.util';
-import { IStatsTeam } from '../Interfaces/teams/IStatsTeam';
+import { ITeamStats } from '../Interfaces/teams/ITeamStats';
 
 export default class LeaderboardController {
   constructor(
@@ -14,7 +14,7 @@ export default class LeaderboardController {
     const teams = await this.teamModel.findAll();
     const matches = await this.matchModel.findAll();
 
-    const leaderboardHome: IStatsTeam[] = [];
+    const leaderboardHome: ITeamStats[] = [];
 
     teams.forEach((team) => {
       const statsTeam = {
