@@ -7,7 +7,7 @@ const router = Router();
 
 router.get(
   '/',
-  (req: Request, res: Response) => leaderboardController.leaderboardAway(req, res),
+  (req: Request, res: Response) => leaderboardController.leaderboard(req, res),
 );
 
 router.get(
