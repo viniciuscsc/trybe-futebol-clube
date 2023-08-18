@@ -10,13 +10,12 @@ export default class LeaderboardService {
   constructor(
     private teamModel = new TeamModel(),
     private matchModel = new MatchModel(),
+    private _leaderboardHome: ITeamStats[] = [],
   ) {}
 
   async leaderboardHome(): Promise<ServiceResponse<ITeamStats[]>> {
     const teams = await this.teamModel.findAll();
     const matches = await this.matchModel.findAll();
-
-    const leaderboardHome: ITeamStats[] = [];
 
     teams.forEach((team) => {
       const statsTeam = {
@@ -28,10 +27,12 @@ export default class LeaderboardService {
         totalLosses: getGames(team.id, matches).losses,
         goalsFavor: getGoals(team.id, matches).goalsFavor,
         goalsOwn: getGoals(team.id, matches).goalsOwn,
+        goalsBalance: getGoals(team.id, matches).goalsBalance,
+        efficiency: getGames(team.id, matches).efficiency,
       };
-      leaderboardHome.push(statsTeam);
+      this._leaderboardHome.push(statsTeam);
     });
 
-    return { statusCode: 200, data: leaderboardHome };
+    return { statusCode: 200, data: this._leaderboardHome };
   }
 }
