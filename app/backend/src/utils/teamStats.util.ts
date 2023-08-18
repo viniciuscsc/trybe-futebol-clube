@@ -28,4 +28,7 @@ export function getGoals(teamId: number, matches: IMatch[]) {
       goalsOwn += awayTeamGoals;
     }
   });
+  const goalsBalance = goalsFavor - goalsOwn;
+
+  return { goalsFavor, goalsOwn, goalsBalance };
 }
