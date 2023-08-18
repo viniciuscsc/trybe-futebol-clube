@@ -1,6 +1,6 @@
 import { IMatch } from '../Interfaces/matches/IMatch';
 
-export function getGames(teamId: number, matches: IMatch[]) {
+export function getHomeGames(teamId: number, matches: IMatch[]) {
   let games = 0;
   let victories = 0;
   let draws = 0;
@@ -19,7 +19,7 @@ export function getGames(teamId: number, matches: IMatch[]) {
   return { points, games, victories, draws, losses, efficiency };
 }
 
-export function getGoals(teamId: number, matches: IMatch[]) {
+export function getHomeGoals(teamId: number, matches: IMatch[]) {
   let goalsFavor = 0;
   let goalsOwn = 0;
 
@@ -34,17 +34,17 @@ export function getGoals(teamId: number, matches: IMatch[]) {
   return { goalsFavor, goalsOwn, goalsBalance };
 }
 
-export function getTeamStats(teamName: string, teamId: number, matches: IMatch[]) {
+export function getHomeTeamStats(teamName: string, teamId: number, matches: IMatch[]) {
   return {
     name: teamName,
-    totalPoints: getGames(teamId, matches).points,
-    totalGames: getGames(teamId, matches).games,
-    totalVictories: getGames(teamId, matches).victories,
-    totalDraws: getGames(teamId, matches).draws,
-    totalLosses: getGames(teamId, matches).losses,
-    goalsFavor: getGoals(teamId, matches).goalsFavor,
-    goalsOwn: getGoals(teamId, matches).goalsOwn,
-    goalsBalance: getGoals(teamId, matches).goalsBalance,
-    efficiency: getGames(teamId, matches).efficiency,
+    totalPoints: getHomeGames(teamId, matches).points,
+    totalGames: getHomeGames(teamId, matches).games,
+    totalVictories: getHomeGames(teamId, matches).victories,
+    totalDraws: getHomeGames(teamId, matches).draws,
+    totalLosses: getHomeGames(teamId, matches).losses,
+    goalsFavor: getHomeGoals(teamId, matches).goalsFavor,
+    goalsOwn: getHomeGoals(teamId, matches).goalsOwn,
+    goalsBalance: getHomeGoals(teamId, matches).goalsBalance,
+    efficiency: getHomeGames(teamId, matches).efficiency,
   };
 }

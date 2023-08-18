@@ -4,7 +4,7 @@ import MatchModel from '../models/MatchModel';
 import { ServiceResponse } from '../Interfaces/ServiceResponse';
 import { ITeamStats } from '../Interfaces/teams/ITeamStats';
 
-import { getTeamStats } from '../utils/teamStats.util';
+import { getHomeTeamStats } from '../utils/homeTeamStats.util';
 import sortLeaderboard from '../utils/sortLeaderboard.util';
 
 export default class LeaderboardService {
@@ -19,7 +19,7 @@ export default class LeaderboardService {
     const leaderboardHome: ITeamStats[] = [];
 
     teams.forEach(({ id, teamName }) => {
-      const statsTeam = getTeamStats(teamName, id, matches);
+      const statsTeam = getHomeTeamStats(teamName, id, matches);
       leaderboardHome.push(statsTeam);
     });
 
