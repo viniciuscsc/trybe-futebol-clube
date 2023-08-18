@@ -5,6 +5,7 @@ import { ServiceResponse } from '../Interfaces/ServiceResponse';
 import { ITeamStats } from '../Interfaces/teams/ITeamStats';
 
 import { getHomeTeamStats } from '../utils/homeTeamStats.util';
+import { getAwayTeamStats } from '../utils/awayTeamStats.util';
 import sortLeaderboard from '../utils/sortLeaderboard.util';
 
 export default class LeaderboardService {
@@ -24,6 +25,21 @@ export default class LeaderboardService {
     });
 
     const sortedLeaderboard = sortLeaderboard(leaderboardHome);
+
+    return { statusCode: 200, data: sortedLeaderboard };
+  }
+
+  async leaderboardAway(): Promise<ServiceResponse<ITeamStats[]>> {
+    const teams = await this.teamModel.findAll();
+    const matches = await this.matchModel.findAll(false);
+    const leaderboardAway: ITeamStats[] = [];
+
+    teams.forEach(({ id, teamName }) => {
+      const statsTeam = getAwayTeamStats(teamName, id, matches);
+      leaderboardAway.push(statsTeam);
+    });
+
+    const sortedLeaderboard = sortLeaderboard(leaderboardAway);
 
     return { statusCode: 200, data: sortedLeaderboard };
   }
