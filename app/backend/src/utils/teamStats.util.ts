@@ -1,4 +1,3 @@
-import { ITeamStats } from '../Interfaces/teams/ITeamStats';
 import { IMatch } from '../Interfaces/matches/IMatch';
 
 export function getGames(teamId: number, matches: IMatch[]) {
@@ -48,24 +47,4 @@ export function getTeamStats(teamName: string, teamId: number, matches: IMatch[]
     goalsBalance: getGoals(teamId, matches).goalsBalance,
     efficiency: getGames(teamId, matches).efficiency,
   };
-}
-
-export function sortLeaderboard(leaderboard: ITeamStats[]) {
-  const sortedLeaderboard = leaderboard.sort((a: ITeamStats, b: ITeamStats): number => {
-    if (b.totalPoints !== a.totalPoints) {
-      return b.totalPoints - a.totalPoints;
-    }
-
-    if (b.totalVictories !== a.totalVictories) {
-      return b.totalVictories - a.totalVictories;
-    }
-
-    if (b.goalsBalance !== a.goalsBalance) {
-      return b.goalsBalance - a.goalsBalance;
-    }
-
-    return b.goalsFavor - a.goalsFavor;
-  });
-
-  return sortedLeaderboard;
 }

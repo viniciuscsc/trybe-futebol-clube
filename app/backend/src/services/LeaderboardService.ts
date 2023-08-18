@@ -4,7 +4,8 @@ import MatchModel from '../models/MatchModel';
 import { ServiceResponse } from '../Interfaces/ServiceResponse';
 import { ITeamStats } from '../Interfaces/teams/ITeamStats';
 
-import { getTeamStats, sortLeaderboard } from '../utils/teamStats.util';
+import { getTeamStats } from '../utils/teamStats.util';
+import sortLeaderboard from '../utils/sortLeaderboard.util';
 
 export default class LeaderboardService {
   constructor(
