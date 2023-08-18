@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import TeamModel from '../models/TeamModel';
 import MatchModel from '../models/MatchModel';
-import { getGames, getGoals } from '../utils/teamStatistics.util';
+import { getGames, getGoals } from '../utils/teamStats.util';
 import { ITeamStats } from '../Interfaces/teams/ITeamStats';
 
 export default class LeaderboardController {
